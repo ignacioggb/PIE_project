@@ -19,14 +19,7 @@ class Mesero extends Component {
   };
 
 //----Cambiar color al banner de la izq--//
-renderButton(i){
-  return(
-    <WaiterButtons 
-    menu={menu[i]}
-    active={this.state.active[i]}
-    onClick={()=>this.handleClick(i)}/>
-  );
-}
+
 handleClick(i){
   const active = this.state.active.slice();
   if (active[i] == null){
@@ -61,7 +54,16 @@ handleClick2(i){
   });
 }
 //----------------//-------//-----------//
-
+renderLoopButtons(){
+  let buttonArray=[]
+  for (let index = 0; index < menu.length; index++) {
+    buttonArray.push(<WaiterButtons 
+      menu={menu[index]}
+      active={this.state.active[index]}
+      onClick={()=>this.handleClick(index)}/>)
+  }
+  return(buttonArray);
+}
 
 
   render() {
@@ -69,11 +71,8 @@ handleClick2(i){
     <Container fluid>
       <Row>
         <Col size="md-2">
-        {this.renderButton(0)}
-        {this.renderButton(1)}
-        {this.renderButton(2)}
-        {this.renderButton(3)}
-        {this.renderButton(4)}
+        {this.renderLoopButtons()}
+
         </Col>
         <Col size="md-8">
           {this.state.selected ==0 ? (<MainScreenCont/>):(<h1>Bienvenido!</h1>)}
