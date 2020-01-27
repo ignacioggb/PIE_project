@@ -8,14 +8,16 @@ import RightBanner from "../components/RightBanner";
 //Nombre de botones
 const RightTools=["Seleccionar Mesa","Juntar","Cobrar"];
 const menu=["Orden Nueva","Orden Existente","Cerrar Orden","Mapa","Otros"];
-
+const tables=[1, 2, 3, 4]
 
 class Mesero extends Component {
   state = {
     active:Array(menu.length).fill(null),
     active2:Array(RightTools.length).fill(null),
-    selected:null,
+    buttonSelected:null,
     ordenNueva:false,
+    availableTables:tables,
+    unavailableTables:Array(tables.length).fill(null)
   };
 
 //----Cambiar color al banner de la izq--//
@@ -36,7 +38,7 @@ handleClick(i){
 
   this.setState({
     active: active,
-    selected:i
+    buttonSelected:i
   });
 }
 //------------------//-----------------//
@@ -61,10 +63,31 @@ handleClick2(i){
   });
 }
 //----------------//-------//-----------//
-
-
+//renderTables(){}
+//renderWaiterButtons()
+renderSwitch(param){
+  switch (param) {
+    case 0:
+      
+      let tables =[]
+      tables.push( <h1>Seleccione una Mesa</h1>)
+      for (let index = 0; index < this.state.availableTables.length; index++) {
+      tables.push(<MainScreenCont table={index+1}/>)
+      }
+      
+      return(tables)     
+    break;
+    case 1:
+      
+    case 2:
+      
+    default:
+      break;
+  }
+}
 
   render() {
+  console.log()  
   return (
     <Container fluid>
       <Row>
@@ -76,14 +99,14 @@ handleClick2(i){
         {this.renderButton(4)}
         </Col>
         <Col size="md-8">
-          {this.state.selected ==0 ? (<MainScreenCont/>):(<h1>Bienvenido!</h1>)}
+          {this.renderSwitch(this.state.buttonSelected)}
         </Col>
         <Col size="md-2">
-        {this.state.selected ==0 ? (
+        {this.state.buttonSelected ==0 ? (
           this.renderRigthButton(0)):(<h4>Productos recomendados</h4>)}
-          {this.state.selected ==0 ? (
+          {this.state.buttonSelected ==0 ? (
           this.renderRigthButton(1)):(<h1/>)}
-          {this.state.selected ==0 ? (
+          {this.state.buttonSelected ==0 ? (
           this.renderRigthButton(2)):(<h1/>)}
   
         </Col>
